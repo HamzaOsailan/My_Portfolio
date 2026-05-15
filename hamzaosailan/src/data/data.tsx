@@ -130,8 +130,9 @@ export const portfolioItems = [
     period: "",
     description: "Responsive frontend with React.js & Tailwind CSS.",
     cardImage: ReactDashboard,
-    galleryImages: [ReactDashboard, "https://example.com/react-dashboard-image2.png"],
+    galleryImages: [ReactDashboard],
     link: "https://react-dashbaord-webpage.netlify.app/",
+    demo: "https://react-dashbaord-webpage.netlify.app/"
   },
   {
     title: "Car Advertisement Platform",

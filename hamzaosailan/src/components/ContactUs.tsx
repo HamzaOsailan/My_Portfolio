@@ -11,6 +11,12 @@ const ContactUs = () => {
     message: ""
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -18,24 +24,73 @@ const ContactUs = () => {
       ...form,
       [e.target.name]: e.target.value
     });
+
+    setErrors({
+      ...errors,
+      [e.target.name]: ""
+    });
+  };
+
+  const validateForm = () => {
+    let valid = true;
+
+    const newErrors = {
+      name: "",
+      email: "",
+      message: ""
+    };
+
+    // Name Validation
+    if (!form.name.trim()) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    // Email Validation
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+      valid = false;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(form.email)
+    ) {
+      newErrors.email = "Invalid email address";
+      valid = false;
+    }
+
+    // Message Validation
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    return valid;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!validateForm()) return;
+
     emailjs.send(
-      "service_67h0puv",      // ضع Service ID
-      "template_c5n9wcd",     // ضع Template ID
+      "service_67h0puv",
+      "template_c5n9wcd",
       {
         from_name: form.name,
         from_email: form.email,
         message: form.message
       },
-      "-fWDP_lrponWQzfxx"       // ضع Public Key
+      "-fWDP_lrponWQzfxx"
     )
     .then(() => {
       alert("Message sent successfully 🚀");
-      setForm({ name: "", email: "", message: "" });
+
+      setForm({
+        name: "",
+        email: "",
+        message: ""
+      });
     })
     .catch(() => {
       alert("Failed to send message ❌");
@@ -54,7 +109,7 @@ const ContactUs = () => {
 
       <motion.h2
         variants={item}
-        className="text-3xl font-bold mb-6 text-primary"
+        className="text-3xl font-bold mb-6 text-primary text-center"
       >
         Contact Me
       </motion.h2>
@@ -65,39 +120,64 @@ const ContactUs = () => {
         className="max-w-lg mx-auto flex flex-col gap-4"
       >
 
-        <motion.input
-          variants={item}
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className="p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary"
-        />
+        {/* Name */}
+        <motion.div variants={item}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary"
+          />
 
-        <motion.input
-          variants={item}
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={form.email}
-          onChange={handleChange}
-          className="p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary"
-        />
+          {errors.name && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.name}
+            </p>
+          )}
+        </motion.div>
 
-        <motion.textarea
-          variants={item}
-          name="message"
-          placeholder="Your Message"
-          value={form.message}
-          onChange={handleChange}
-          className="p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary resize-none h-32"
-        />
+        {/* Email */}
+        <motion.div variants={item}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary"
+          />
 
+          {errors.email && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.email}
+            </p>
+          )}
+        </motion.div>
+
+        {/* Message */}
+        <motion.div variants={item}>
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={form.message}
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-card border border-white/20 focus:outline-none focus:border-primary resize-none h-32"
+          />
+
+          {errors.message && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.message}
+            </p>
+          )}
+        </motion.div>
+
+        {/* Button */}
         <motion.button
           variants={item}
           type="submit"
-          className="mb-8 px-4 py-2 bg-teal-400 rounded-full text-white shadow-lg"
+          className="mt-2 px-6 py-3 bg-teal-400 rounded-full text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
         >
           Send Message
         </motion.button>

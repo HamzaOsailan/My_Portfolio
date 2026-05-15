@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router-dom";
 import { portfolioItems } from "../data/data";
 import { motion } from "framer-motion";
@@ -11,67 +10,102 @@ const ProjectsDetails = () => {
     (p) => p.title === decodeURIComponent(title!)
   );
 
-  if (!project)
+  if (!project) {
     return (
-      <div className="text-center mt-20 text-white">
-        Project not found
+      <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+        <h1 className="text-4xl font-bold mb-6">Project not found</h1>
+
         <button
           onClick={() => navigate(-1)}
-          className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700"
+          className="px-6 py-3 bg-teal-400 text-black rounded-xl font-semibold hover:scale-105 transition"
         >
           Go Back
         </button>
       </div>
     );
+  }
 
   return (
-    <div className="py-16 px-4 max-w-6xl mx-auto">
-      {/* Back Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-8 px-4 py-2 bg-teal-400 rounded-full text-white shadow-lg"
-      >
-        ← Back
-      </button>
+    <section className="bg-black text-white py-14 px-4">
+      <div className="max-w-6xl mx-auto">
 
-      {/* Title & Category */}
-      <h1 className="text-4xl md:text-5xl font-bold mb-2 text-teal-400">
-        {project.title}
-      </h1>
-      <p className="text-white mb-6">{project.category}</p>
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-8 px-5 py-2 bg-teal-400 rounded-full text-white shadow-lg hover:scale-105 transition"
+        >
+          ← Back
+        </button>
 
-      {/* Description */}
-      <p className="text-gray-300 mb-12 leading-relaxed">{project.description}</p>
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl font-bold text-teal-400 mb-3">
+          {project.title}
+        </h1>
 
-      {/* Images Grid */}
-      <motion.div
-        className="grid md:grid-cols-2 gap-6"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: 0.2 } },
-        }}
-      >
-        {project.galleryImages.map((img, idx) => (
-          <motion.div
-            key={idx}
-            className="overflow-hidden rounded-xl shadow-lg"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-            }}
-          >
-            <img
-              src={img}
-              alt={`${project.title}-${idx}`}
-              className="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
+        {/* Category */}
+        <p className="text-gray-400 text-lg mb-6">
+          {project.category}
+        </p>
+
+        {/* Description */}
+        <p className="text-gray-300 leading-relaxed max-w-3xl mb-10">
+          {project.description}
+        </p>
+
+    
+
+        {/* Images */}
+        <motion.div
+          className={`grid gap-6 ${
+            project.galleryImages.length === 1
+              ? "grid-cols-1"
+              : "md:grid-cols-2"
+          }`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.15,
+              },
+            },
+          }}
+        >
+          {project.galleryImages.map((img, idx) => (
+            <motion.div
+              key={idx}
+              className="overflow-hidden rounded-2xl border border-white/10 shadow-lg"
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: 40,
+                },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                  },
+                },
+              }}
+            >
+              <img
+                src={img}
+                alt={`${project.title}-${idx}`}
+                className={`w-full object-cover hover:scale-105 transition duration-500 ${
+                  project.galleryImages.length === 1
+                    ? "h-[500px]"
+                    : "h-72"
+                }`}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+
+      </div>
+    </section>
   );
 };
 
