@@ -18,6 +18,7 @@ import { navItems } from "./data/data";
 import Footer from "./components/Footer";
 
 const WireframeScene = lazy(() => import("./components/WireframeScene"));
+const ProjectsDetails = lazy(() => import("./components/ProjectsDetails"));
 
 function RouteScrollManager() {
   const { pathname, hash } = useLocation();
@@ -79,7 +80,7 @@ function App() {
             path="/projects/:title"
             element={
               <Suspense fallback={<div className="project-loading" role="status">Loading project...</div>}>
-                <Hero />
+                <ProjectsDetails />
               </Suspense>
             }
           />

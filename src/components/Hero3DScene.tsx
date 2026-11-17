@@ -34,17 +34,17 @@ const Hero3DScene = () => {
     scene.add(root);
 
     const violet = new THREE.MeshBasicMaterial({
-      color: 0x9b5cff,
+      color: 0xb56cff,
       wireframe: true,
       transparent: true,
-      opacity: 0.65,
+      opacity: 1,
     });
 
     const blue = new THREE.MeshBasicMaterial({
-      color: 0x38a5ff,
+      color: 0x48c7ff,
       wireframe: true,
       transparent: true,
-      opacity: 0.48,
+      opacity: 0.98,
     });
 
     const core = new THREE.Mesh(
@@ -62,9 +62,9 @@ const Hero3DScene = () => {
     root.add(knot);
 
     const orbitMaterial = new THREE.MeshBasicMaterial({
-      color: 0x8b69ff,
+      color: 0xa78bfa,
       transparent: true,
-      opacity: 0.32,
+      opacity: 0.88,
     });
 
     const orbitOne = new THREE.Mesh(
@@ -99,10 +99,10 @@ const Hero3DScene = () => {
     );
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x9c83ff,
-      size: 0.025,
+      color: 0xd5c5ff,
+      size: 0.04,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.98,
       sizeAttenuation: true,
     });
 

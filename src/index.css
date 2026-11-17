@@ -8013,3 +8013,45 @@ body {
 .project-gallery-v2-content {
   transform: none !important;
 }
+
+/* HERO 3D CLARITY ENHANCEMENT */
+.neo-3d-scene {
+  opacity: .88;
+}
+
+@media (max-width: 768px) {
+  .neo-3d-scene {
+    opacity: .58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-3d-scene {
+    opacity: .45;
+  }
+}
+/* HERO 3D VIVID COLORS */
+.neo-3d-scene {
+  opacity: .98;
+}
+
+@media (max-width: 768px) {
+  .neo-3d-scene {
+    opacity: .90;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-3d-scene {
+    opacity: .82;
+  }
+}
+/* PERSONAL ICON - SPLASH ONLY */
+.portfolio-splash-icon {
+  display: block;
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  padding: 0;
+  filter: drop-shadow(0 5px 16px rgba(174, 180, 184, .22));
+}

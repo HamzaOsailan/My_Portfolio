@@ -52,7 +52,12 @@ function PortfolioEntry() {
             <div className="portfolio-splash-emblem">
               <span className="portfolio-splash-orbit portfolio-splash-orbit-one" />
               <span className="portfolio-splash-orbit portfolio-splash-orbit-two" />
-              <span className="portfolio-splash-monogram">HO</span>
+              <img
+                className="portfolio-splash-icon"
+                src="/hamza-osailan-favicon.png"
+                alt=""
+                aria-hidden="true"
+              />
               <span className="portfolio-splash-emblem-dot" />
             </div>
 
