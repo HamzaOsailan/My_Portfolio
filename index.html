@@ -12,7 +12,94 @@
     <title>Hamza Osailan — Developer & Quality Engineer</title>
   </head>
   <body>
-    <div id="root"></div>
+    <style>
+  html, body { margin: 0; min-height: 100%; background: #080d16; }
+  #initial-splash {
+    position: fixed; inset: 0; z-index: 999999;
+    display: grid; place-items: center; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 42%, rgba(54,105,175,.18), transparent 42%), linear-gradient(145deg,#080d16,#0c1728 55%,#080d16);
+    color: #edf3fb; font-family: Arial, sans-serif;
+    opacity: 1; visibility: visible;
+    transition: opacity .65s ease, visibility .65s ease;
+  }
+  #initial-splash.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+  #initial-splash .portfolio-splash-content {
+    display: flex; width: min(90vw,420px); flex-direction: column;
+    align-items: center; text-align: center;
+    animation: initial-splash-arrive 1s cubic-bezier(.2,.75,.25,1) both;
+  }
+  #initial-splash .portfolio-splash-emblem {
+    position: relative; display: grid; width: 116px; height: 116px;
+    place-items: center; margin-bottom: 30px;
+    border: 1px solid rgba(148,173,204,.25); border-radius: 32px;
+    background: linear-gradient(145deg,rgba(34,51,75,.72),rgba(11,20,34,.94));
+    box-shadow: 0 24px 75px rgba(0,0,0,.35),0 0 45px rgba(174,180,184,.13);
+    transform: rotate(-5deg);
+  }
+  #initial-splash .portfolio-splash-icon { width: 76px; height: 76px; object-fit: contain; }
+  #initial-splash .portfolio-splash-orbit {
+    position: absolute; inset: -12px; border: 1px solid rgba(120,170,230,.24);
+    border-radius: 38px; animation: initial-splash-orbit 8s linear infinite;
+  }
+  #initial-splash .portfolio-splash-orbit-two {
+    inset: -22px; border-color: rgba(148,173,204,.12);
+    border-radius: 44px; animation-duration: 13s; animation-direction: reverse;
+  }
+  #initial-splash .portfolio-splash-emblem-dot {
+    position: absolute; top: 13px; right: 13px; width: 7px; height: 7px;
+    border-radius: 50%; background: #78aaff; box-shadow: 0 0 15px #5b9cff;
+  }
+  #initial-splash .portfolio-splash-name {
+    font-size: clamp(20px,5vw,27px); font-weight: 750;
+    letter-spacing: .22em; padding-left: .22em;
+  }
+  #initial-splash .portfolio-splash-role {
+    margin-top: 11px; color: #91a4bd; font-size: 10px;
+    font-weight: 600; letter-spacing: .19em;
+  }
+  #initial-splash .portfolio-splash-role span { color: #78aaff; padding: 0 5px; }
+  #initial-splash .portfolio-splash-progress {
+    width: 180px; height: 2px; overflow: hidden; margin-top: 38px;
+    border-radius: 10px; background: rgba(148,173,204,.16);
+  }
+  #initial-splash .portfolio-splash-progress span {
+    display: block; width: 40%; height: 100%; border-radius: inherit;
+    background: linear-gradient(90deg,#5b9cff,#dce8f7);
+    animation: initial-splash-loading 1.6s ease-in-out infinite;
+  }
+  #initial-splash .portfolio-splash-caption {
+    margin-top: 13px; color: #70839d; font-size: 8px;
+    font-weight: 600; letter-spacing: .24em;
+  }
+  @keyframes initial-splash-arrive {
+    from { opacity: 0; transform: translateY(18px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes initial-splash-orbit { to { transform: rotate(360deg); } }
+  @keyframes initial-splash-loading {
+    0% { transform: translateX(-110%); }
+    50% { transform: translateX(150%); }
+    100% { transform: translateX(330%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #initial-splash * { animation: none !important; }
+  }
+</style>
+<div id="initial-splash" role="status" aria-live="polite" aria-label="Loading portfolio">
+  <div class="portfolio-splash-content">
+    <div class="portfolio-splash-emblem">
+      <span class="portfolio-splash-orbit"></span>
+      <span class="portfolio-splash-orbit portfolio-splash-orbit-two"></span>
+      <img class="portfolio-splash-icon" src="/hamza-osailan-favicon.png" alt="" />
+      <span class="portfolio-splash-emblem-dot"></span>
+    </div>
+    <div class="portfolio-splash-name">HAMZA OSAILAN</div>
+    <div class="portfolio-splash-role">DEVELOPER <span>·</span> QUALITY ENGINEER</div>
+    <div class="portfolio-splash-progress"><span></span></div>
+    <div class="portfolio-splash-caption">INITIALIZING EXPERIENCE</div>
+  </div>
+</div>
+<div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
