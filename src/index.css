@@ -5661,7 +5661,7 @@ body {
     linear-gradient(145deg, #080d16, #0c1728 55%, #080d16);
   opacity: 1;
   visibility: visible;
-  transition: opacity .55s ease, visibility .55s ease;
+  transition: opacity .2s ease, visibility .2s ease;
 }
 
 .portfolio-splash.is-leaving {

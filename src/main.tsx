@@ -10,30 +10,64 @@ function PortfolioEntry() {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    const leaveTimer = window.setTimeout(() => setLeaving(true), 1450);
-    const removeTimer = window.setTimeout(() => {
-      window.requestAnimationFrame(() => {
-        const hero = document.getElementById("about");
+    let cancelled = false;
+    let removeTimer: number | undefined;
+    let loadHandler: (() => void) | undefined;
 
-        if (hero) {
-          const heroTop = hero.getBoundingClientRect().top + window.scrollY;
-
-          window.scrollTo({
-            top: Math.max(0, heroTop),
-            left: 0,
-            behavior: "instant",
-          });
-        }
-
-        window.requestAnimationFrame(() => {
-          setVisible(false);
+    const pageLoaded = document.readyState === "complete"
+      ? Promise.resolve()
+      : new Promise<void>((resolve) => {
+          loadHandler = () => resolve();
+          window.addEventListener("load", loadHandler, { once: true });
         });
-      });
-    }, 2000);
+
+    const minimumDisplay = new Promise<void>((resolve) => {
+      window.setTimeout(resolve, 1200);
+    });
+
+    const pageReady = Promise.race([
+      Promise.all([pageLoaded, document.fonts.ready]).then(() => undefined),
+      new Promise<void>((resolve) => {
+        window.setTimeout(resolve, 10000);
+      }),
+    ]);
+
+    Promise.all([minimumDisplay, pageReady]).then(() => {
+      if (cancelled) return;
+
+      setLeaving(true);
+
+      removeTimer = window.setTimeout(() => {
+        window.requestAnimationFrame(() => {
+          const hero = document.getElementById("about");
+
+          if (hero) {
+            const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+
+            window.scrollTo({
+              top: Math.max(0, heroTop),
+              left: 0,
+              behavior: "instant",
+            });
+          }
+
+          window.requestAnimationFrame(() => {
+            setVisible(false);
+          });
+        });
+      }, 650);
+    });
 
     return () => {
-      window.clearTimeout(leaveTimer);
-      window.clearTimeout(removeTimer);
+      cancelled = true;
+
+      if (loadHandler) {
+        window.removeEventListener("load", loadHandler);
+      }
+
+      if (removeTimer !== undefined) {
+        window.clearTimeout(removeTimer);
+      }
     };
   }, []);
 

@@ -79,6 +79,14 @@ const Hero = () => {
             <a className="neo-button neo-button-ghost" href="#contact">
               LET'S CONNECT
             </a>
+            <a
+              className="neo-button neo-button-ghost"
+              href="/Hamza_Osailan_CV.pdf"
+              download="Hamza_Osailan_CV.pdf"
+            >
+              DOWNLOAD CV
+              <span aria-hidden="true">↓</span>
+            </a>
           </div>
 
           <div className="neo-hero-location">
