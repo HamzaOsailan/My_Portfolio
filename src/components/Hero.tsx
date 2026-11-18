@@ -74,7 +74,7 @@ const Hero = () => {
           <div className="neo-hero-actions">
             <a className="neo-button neo-button-primary" href="#portfolio">
               <span>EXPLORE MY WORK</span>
-              <span aria-hidden="true">↗</span>
+
             </a>
             <a className="neo-button neo-button-ghost" href="#contact">
               LET'S CONNECT
